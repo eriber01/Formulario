@@ -49,23 +49,26 @@ input:focus, textarea:focus{
     transition: all 500ms;
 }
 
-button{
+.enviar{
     outline: none;
     border: none;
     color: white;
     background: rgba(255, 0, 149, 0.8);
     
+    float: none;
+    text-align: center;
+    
     font-size: 16px;
-    padding: 10px 60px;
+    /* padding: 10px 60px; */
     cursor: pointer;
     border-radius: 3px;
-    margin: 20px;
+    width: 200px;
 
     box-shadow: rgba(0, 0, 0, 0.5) 1px 2px 10px;
     transition: all 800ms;
 }
 
-button:hover{
+.enviar:hover{
     transform: scale(1.05);
     box-shadow: rgba(0, 0, 0, 0.5) 4px 5px 15px;
 }

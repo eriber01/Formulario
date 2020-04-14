@@ -10,17 +10,17 @@
 <body>
 
     <div class="container">
-        <form >
+        <form action="#" id="formulario" >
             <h1 id="app">Contactanos</h1>
            
-            <input type="text" name="nombre" placeholder="Nombre" id="name" autocomplete=off>
-            <input type="email" name="e-mail" id="e-mail" placeholder="Correo" autocomplete=off>
-            <textarea name="text" id="message" placeholder="Mensaje"></textarea>
+            <input  type="text" required="true" name="nombre" placeholder="Nombre" id="name" >
+
+            <input type="email" required="true" name="e-mail" id="e-mail" placeholder="Correo" >
+
+            <textarea name="text" required="true" id="message" placeholder="Mensaje"></textarea>
     
-            <button type="button" onclick="cap_form()" >Enviar Mensaje</button>
-            <div id="enlace"></div>
+            <input type="submit" id="send" class="enviar" value="Enviar">
         </form>
-        
     </div>
 
    

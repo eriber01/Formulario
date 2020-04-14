@@ -1,17 +1,22 @@
+//variables
+const enviarBtn = document.querySelector('#send')
 
 
-function cap_form() {
-    let name =   document.getElementById("name").value;
-    let e_mail = document.getElementById("e-mail").value;
-    let message = document.getElementById("message").value;
+//eventListener
+
+function cargarEventListener(){
+    //document.querySelector('#formulario').addEventListener('submit', enviarLocalStorage);
+    enviarBtn.addEventListener('click', enviarLocalStorage)
+}
 
 
-    const persona = {
-        nomb: name,
-        mail: e_mail,
-        mes: message
-    }
- 
-   console.log(`${persona.nomb} ${persona.mail} ${persona.mes}`);
 
+
+
+//funciones
+
+function enviarLocalStorage(){
+    e.preventDefault();
+    console.log(e.target.parentElement);
+    alert('fds')
 }
