@@ -27,14 +27,12 @@ function eventListener(){
 
 function hola(){
     console.log('precionaste enviar')
+    const datos =  btnEnviar.parentElement;
+    console.log(datos.)
 }
 
 //funciones
 
-//envia el formulario
-function enviarMensaje(eve){
-    eve.preventDefault()
-}
 
 // desabilita el boton enviar desde el inicio 
 function inicioApp(eve){
@@ -104,4 +102,12 @@ function validarEspacio(campo){
         campo.classList.remove('correcto')
         disabled_btnEnviar(true)
     }
+}
+
+
+
+//envia el formulario
+function enviarMensaje(eve){
+    eve.preventDefault()
+    
 }
