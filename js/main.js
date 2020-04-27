@@ -27,8 +27,10 @@ function eventListener(){
 
 function hola(){
     console.log('precionaste enviar')
-    const datos =  btnEnviar.parentElement;
-    console.log(datos.)
+
+    const datos = btnEnviar.parentElement;
+    console.log(datos)
+    obtenerDatos(datos);
 }
 
 //funciones
@@ -103,6 +105,31 @@ function validarEspacio(campo){
         disabled_btnEnviar(true)
     }
 }
+
+
+//optiene los datos del DOM
+
+function obtenerDatos(datos){
+    
+        info_correo:    datos.querySelector('#email').value,
+        info_mensaje:   datos.querySelector('#mensaje').value
+    }
+
+    console.log(datosCampos)
+
+    obtenerDatos_LocalStorage(datosCampos)
+}
+
+
+//guarda los datos en local storage del objeto datoscampos
+
+function obtenerDatos_LocalStorage(datosCampos){
+    //guarda y convierte el objeto en string
+
+
+    localStorage.setItem('UserData', JSON.stringify(datosCampos))
+}
+
 
 
 
