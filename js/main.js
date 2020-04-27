@@ -120,18 +120,38 @@ function obtenerDatos(datos){
 
     console.log(datosCampos)
 
-    obtenerDatos_LocalStorage(datosCampos)
+    guardarDatos_LocalStorage(datosCampos)
 }
 
 
 //guarda los datos en local storage del objeto datoscampos
 
-function obtenerDatos_LocalStorage(datosCampos){
+function guardarDatos_LocalStorage(datosCampos){
+    let userData;
+
+    userData = obtenerDatos_LocalStorage()
+    userData.push(datosCampos)
     //guarda y convierte el objeto en string
-
-
-    localStorage.setItem('UserData', JSON.stringify(datosCampos))
+    localStorage.setItem('UserData', JSON.stringify(userData))
 }
+
+
+function obtenerDatos_LocalStorage(){
+    let userDataLS;
+
+    if(localStorage.getItem('UserData') === null){
+        userDataLS = [];
+    }else{
+        userDataLS = JSON.parse(localStorage.getItem('UserData'))
+    }
+
+    return userDataLS;
+}
+
+
+
+
+
 
 
 
