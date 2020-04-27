@@ -111,6 +111,9 @@ function validarEspacio(campo){
 
 function obtenerDatos(datos){
     
+    //guarda los del formulario en el objeto datosCampos
+    let datosCampos = {
+        info_nombre:    datos.querySelector('#nombre').value,
         info_correo:    datos.querySelector('#email').value,
         info_mensaje:   datos.querySelector('#mensaje').value
     }
