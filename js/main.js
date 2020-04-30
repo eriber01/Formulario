@@ -46,6 +46,7 @@ function inicioApp(eve){
 
     disabled_btnEnviar(state)
 
+    cargarDatos_LocalStorage()
 }
 
 //agraga las clases si el boton enviar esta habilitado o no
@@ -149,11 +150,32 @@ function obtenerDatos_LocalStorage(){
 }
 
 
+// carga los datos del localstorage al DOM
+
+function cargarDatos_LocalStorage(){
+    let userDataLS;
+    userDataLS = obtenerDatos_LocalStorage()
 
 
+    console.log(userDataLS);
+    const insetDOM = document.getElementById('app');
 
+    //recorre objeto userDataLS y lo carga al DOM
+    userDataLS.forEach(function(data) {
+        const lista =  document.createElement('ul')
+        
+        lista.innerHTML = `
+            <li> Nombre: ${data.info_nombre} </li>
+            <li> Correo: ${data.info_correo}</li>
+            <li> Mensaje: ${data.info_mensaje}</li
+        `;
 
+        lista.style.borderBottom = 'solid 1px black';
+        lista.style.textAlign = 'center'
+        insetDOM.appendChild(lista)
+    });
 
+}
 
 
 //envia el formulario
