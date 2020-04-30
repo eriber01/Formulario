@@ -23,6 +23,9 @@ function eventListener(){
     //temporal solo de prueva
     btnEnviar.addEventListener('click', hola)
 
+    //cargar los datos del localstorage
+    document.addEventListener('DOMContentLoaded', obtenerDatos_LocalStorage)
+
 }
 
 function hola(){
@@ -45,8 +48,6 @@ function inicioApp(eve){
     console.log(state)
 
     disabled_btnEnviar(state)
-
-    cargarDatos_LocalStorage()
 }
 
 //agraga las clases si el boton enviar esta habilitado o no
