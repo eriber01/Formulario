@@ -2,6 +2,7 @@
 const nombre = document.getElementById('nombre')
 const email = document.getElementById('email')
 const mensaje = document.getElementById('mensaje')
+const insertDOM = document.getElementById('app')
 
 const btnEnviar = document.getElementById('enviar')
 const formularioEnviar = document.getElementById('formulario')
@@ -24,7 +25,7 @@ function eventListener(){
     btnEnviar.addEventListener('click', hola)
 
     //cargar los datos del localstorage
-    document.addEventListener('DOMContentLoaded', obtenerDatos_LocalStorage)
+    document.addEventListener('DOMContentLoaded', cargarDatos_LocalStorage)
 
 }
 
@@ -120,6 +121,25 @@ function obtenerDatos(datos){
         info_mensaje:   datos.querySelector('#mensaje').value
     }
 
+    //prueva
+    /* const lista =  document.createElement('ul')
+        
+        lista.innerHTML = `
+            <li> Nombre: ${datosCampos.info_nombre} </li>
+            <li> Correo: ${datosCampos.info_correo}</li>
+            <li> Mensaje: ${datosCampos.info_mensaje}</li
+        `;
+
+        lista.style.borderBottom = 'solid 1px black';
+        lista.style.textAlign = 'center'
+        insertDOM.appendChild(lista) */
+        
+    //prueva fin
+
+    //crea el templace literal y lo envia al DOM
+
+    templace_Literal(datosCampos)
+
     console.log(datosCampos)
 
     guardarDatos_LocalStorage(datosCampos)
@@ -153,17 +173,17 @@ function obtenerDatos_LocalStorage(){
 
 // carga los datos del localstorage al DOM
 
-function cargarDatos_LocalStorage(){
+function cargarDatos_LocalStorage(eve){
+    eve.preventDefault()
     let userDataLS;
     userDataLS = obtenerDatos_LocalStorage()
 
 
     console.log(userDataLS);
-    const insetDOM = document.getElementById('app');
 
     //recorre objeto userDataLS y lo carga al DOM
     userDataLS.forEach(function(data) {
-        const lista =  document.createElement('ul')
+        /* const lista =  document.createElement('ul')
         
         lista.innerHTML = `
             <li> Nombre: ${data.info_nombre} </li>
@@ -173,11 +193,28 @@ function cargarDatos_LocalStorage(){
 
         lista.style.borderBottom = 'solid 1px black';
         lista.style.textAlign = 'center'
-        insetDOM.appendChild(lista)
+        insertDOM.appendChild(lista) */
+
+        templace_Literal(data)
     });
 
 }
 
+
+///crea templace literal del DOM
+function templace_Literal(dato){
+    const lista =  document.createElement('ul')
+        
+        lista.innerHTML = `
+            <li> Nombre: ${dato.info_nombre} </li>
+            <li> Correo: ${dato.info_correo}</li>
+            <li> Mensaje: ${dato.info_mensaje}</li
+        `;
+
+        lista.style.borderBottom = 'solid 1px black';
+        lista.style.textAlign = 'center'
+        insertDOM.appendChild(lista)
+}
 
 //envia el formulario
 function enviarMensaje(eve){
