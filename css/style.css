@@ -54,6 +54,23 @@ input[type=submit]{
     width: 250px;
 }
 
+/*area desplazable con los datos de los registros*/
+
+.registros-container{
+    width: 40%;
+    height: 80%;
+    padding: 20px;
+
+    position: absolute;
+    transform: translateY(101%);
+    opacity: 0;
+}
+
+.registros-vista{
+    transform: translateY(0%);
+    opacity: 1;
+    transition: all 500ms ease;
+}
 
 .enviar{
     outline: none;
@@ -79,7 +96,12 @@ input[type=submit]{
     box-shadow: rgba(0, 0, 0, 0.5) 4px 5px 15px;
 }
 
-
+.registros{
+    list-style: none;
+    color: rgba(255, 0, 149, 0.8);
+    text-decoration: none;
+  
+}
 
 /* Clases agregadas desde Javascript*/
 
@@ -90,3 +112,4 @@ input[type=submit]{
 .correcto{
     border-bottom: solid 1px green;
 }
+

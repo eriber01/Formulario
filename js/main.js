@@ -221,3 +221,10 @@ function enviarMensaje(eve){
     eve.preventDefault()
     
 }
+
+
+const click_registros = document.getElementById('registros-click').addEventListener('click', function(eve){
+    eve.preventDefault()
+
+    const registros_vista =  document.getElementById('registros').classList.add('registros-vista')
+})
