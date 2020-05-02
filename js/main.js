@@ -2,11 +2,14 @@
 const nombre = document.getElementById('nombre')
 const email = document.getElementById('email')
 const mensaje = document.getElementById('mensaje')
-const insertDOM = document.getElementById('app')
+const insertDOM = document.getElementById('registros')
 
 const btnEnviar = document.getElementById('enviar')
 const formularioEnviar = document.getElementById('formulario')
 
+const btnRegistros =  document.getElementById('registros-click')
+const btnCerrarRegistros = document.getElementById('cerrar-registro')
+const registros = document.getElementById('registros')
 //eventos
 
 eventListener();
@@ -14,28 +17,24 @@ eventListener();
 function eventListener(){
     //se ejecuta cuando carga el DOM
     document.addEventListener('DOMContentLoaded', inicioApp)
+
     //validan si los campos estan vac
     nombre.addEventListener('blur', validarCampos)
     email.addEventListener('blur', validarCampos)
-    mensaje.addEventListener('blur', validarCampos)
-    //envia el formulario
-    formularioEnviar.addEventListener('submit', enviarMensaje)
-    
-    //temporal solo de prueva
-    btnEnviar.addEventListener('click', hola)
+    mensaje.addEventListener('blur', validarCampos) 
 
     //cargar los datos del localstorage
     document.addEventListener('DOMContentLoaded', cargarDatos_LocalStorage)
 
+    //envia el formulario
+    formularioEnviar.addEventListener('submit', enviarMensaje) 
+
+    //abre el form con los datos registrados
+    btnRegistros.addEventListener('click', registrosView)
+    //cierra los registros
+    btnCerrarRegistros.addEventListener('click', registrosCerrar)
 }
 
-function hola(){
-    console.log('precionaste enviar')
-
-    const datos = btnEnviar.parentElement;
-    console.log(datos)
-    obtenerDatos(datos);
-}
 
 //funciones
 
@@ -121,7 +120,7 @@ function obtenerDatos(datos){
         info_mensaje:   datos.querySelector('#mensaje').value
     }
 
-    //prueva
+    // ya no se utiliza de forma directa se hace desde una funcion
     /* const lista =  document.createElement('ul')
         
         lista.innerHTML = `
@@ -133,8 +132,6 @@ function obtenerDatos(datos){
         lista.style.borderBottom = 'solid 1px black';
         lista.style.textAlign = 'center'
         insertDOM.appendChild(lista) */
-        
-    //prueva fin
 
     //crea el templace literal y lo envia al DOM
 
@@ -183,6 +180,8 @@ function cargarDatos_LocalStorage(eve){
 
     //recorre objeto userDataLS y lo carga al DOM
     userDataLS.forEach(function(data) {
+
+        // ya no se utiliza de forma directa se hace desde una funcion
         /* const lista =  document.createElement('ul')
         
         lista.innerHTML = `
@@ -220,11 +219,35 @@ function templace_Literal(dato){
 function enviarMensaje(eve){
     eve.preventDefault()
     
+    console.log('precionaste enviar')
+
+    const datos = btnEnviar.parentElement;
+    console.log(datos)
+    obtenerDatos(datos);
+
+    formularioEnviar.reset()
 }
 
-
-const click_registros = document.getElementById('registros-click').addEventListener('click', function(eve){
+//abre los registros guardados
+function registrosView(eve){
     eve.preventDefault()
 
-    const registros_vista =  document.getElementById('registros').classList.add('registros-vista')
-})
+    
+    registros.classList.remove('registros-cerrar')
+    registros.classList.add('registros-ver')
+    registros.style.height = '75%'
+    registros.style.zIndex = '10'
+}
+
+//cierra los registros guardados
+
+function registrosCerrar(eve){
+    eve.preventDefault()
+
+    
+    registros.classList.remove('registros-ver')
+    registros.classList.add('registros-cerrar')
+
+    registros.style.height = '0px'
+    formularioEnviar.style.zIndex = '10'
+}
