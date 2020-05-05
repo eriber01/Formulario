@@ -209,16 +209,14 @@ function templace_Literal(dato){
             <li> Correo: ${dato.info_correo}</li>
             <li> Mensaje: ${dato.info_mensaje}</li
         `;
-
-        lista.style.borderBottom = 'solid 1px black';
-        lista.style.textAlign = 'center'
+        lista.classList.add('list-data');
         insertDOM.appendChild(lista)
 }
 
 //envia el formulario
 function enviarMensaje(eve){
     eve.preventDefault()
-    
+
     console.log('precionaste enviar')
 
     const datos = btnEnviar.parentElement;
@@ -232,11 +230,10 @@ function enviarMensaje(eve){
 function registrosView(eve){
     eve.preventDefault()
 
-    
+
     registros.classList.remove('registros-cerrar')
     registros.classList.add('registros-ver')
-    registros.style.height = '75%'
-    registros.style.zIndex = '10'
+    formularioEnviar.style.zIndex = '10'
 }
 
 //cierra los registros guardados
@@ -244,10 +241,12 @@ function registrosView(eve){
 function registrosCerrar(eve){
     eve.preventDefault()
 
-    
     registros.classList.remove('registros-ver')
     registros.classList.add('registros-cerrar')
 
-    registros.style.height = '0px'
-    formularioEnviar.style.zIndex = '10'
+    setTimeout(function esperar(){
+        formularioEnviar.style.zIndex = '20'
+    },300)
+    
+    
 }
