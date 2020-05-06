@@ -2,7 +2,7 @@
 const nombre = document.getElementById('nombre')
 const email = document.getElementById('email')
 const mensaje = document.getElementById('mensaje')
-const insertDOM = document.getElementById('registros')
+const insertDOM = document.getElementById('app')
 
 const btnEnviar = document.getElementById('enviar')
 const formularioEnviar = document.getElementById('formulario')
@@ -202,10 +202,13 @@ function cargarDatos_LocalStorage(eve){
 
 ///crea templace literal del DOM
 function templace_Literal(dato){
-    const lista =  document.createElement('ul')
-        
+    const lista = document.createElement('ul')
+    const btnBorrar = document.createElement('a')
+    btnBorrar.textContent = "X"
+    btnBorrar.classList.add('borrar')
+    insertDOM.appendChild(btnBorrar)
         lista.innerHTML = `
-            <li> Nombre: ${dato.info_nombre} </li>
+            <li> Nombre: ${dato.info_nombre}</li>
             <li> Correo: ${dato.info_correo}</li>
             <li> Mensaje: ${dato.info_mensaje}</li
         `;
