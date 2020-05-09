@@ -10,6 +10,7 @@ const formularioEnviar = document.getElementById('formulario')
 const btnRegistros =  document.getElementById('registros-click')
 const btnCerrarRegistros = document.getElementById('cerrar-registro')
 const registros = document.getElementById('registros')
+const Btn_borrarRegistros = document.getElementById('app')
 //eventos
 
 eventListener();
@@ -21,7 +22,7 @@ function eventListener(){
     //validan si los campos estan vac
     nombre.addEventListener('blur', validarCampos)
     email.addEventListener('blur', validarCampos)
-    mensaje.addEventListener('blur', validarCampos) 
+    mensaje.addEventListener('blur', validarCampos)
 
     //cargar los datos del localstorage
     document.addEventListener('DOMContentLoaded', cargarDatos_LocalStorage)
@@ -33,6 +34,9 @@ function eventListener(){
     btnRegistros.addEventListener('click', registrosView)
     //cierra los registros
     btnCerrarRegistros.addEventListener('click', registrosCerrar)
+
+    //borrar los registros del DOM y local Storage
+    Btn_borrarRegistros.addEventListener('click', borrarRegistros)
 }
 
 
@@ -42,10 +46,7 @@ function eventListener(){
 // desabilita el boton enviar desde el inicio 
 function inicioApp(eve){
 
-    console.log("star")
-
     let state = btnEnviar.disabled = true;
-    console.log(state)
 
     disabled_btnEnviar(state)
 }
@@ -113,8 +114,14 @@ function validarEspacio(campo){
 
 function obtenerDatos(datos){
     
+    //crea el numero randon para indentificar cada registro
+
+    let aleatoreo1 = Math.random();
+    let aleatoreo2 = Math.random() * aleatoreo1;
+
     //guarda los del formulario en el objeto datosCampos
     let datosCampos = {
+        data_id:        aleatoreo2,
         info_nombre:    datos.querySelector('#nombre').value,
         info_correo:    datos.querySelector('#email').value,
         info_mensaje:   datos.querySelector('#mensaje').value
@@ -136,8 +143,6 @@ function obtenerDatos(datos){
     //crea el templace literal y lo envia al DOM
 
     templace_Literal(datosCampos)
-
-    console.log(datosCampos)
 
     guardarDatos_LocalStorage(datosCampos)
 }
@@ -175,9 +180,6 @@ function cargarDatos_LocalStorage(eve){
     let userDataLS;
     userDataLS = obtenerDatos_LocalStorage()
 
-
-    console.log(userDataLS);
-
     //recorre objeto userDataLS y lo carga al DOM
     userDataLS.forEach(function(data) {
 
@@ -203,9 +205,12 @@ function cargarDatos_LocalStorage(eve){
 ///crea templace literal del DOM
 function templace_Literal(dato){
     const lista = document.createElement('ul')
+    lista.setAttribute('data_id', dato.data_id)
     const btnBorrar = document.createElement('a')
     btnBorrar.textContent = "X"
     btnBorrar.classList.add('borrar')
+    btnBorrar.title = "Borrar Registro";
+
     insertDOM.appendChild(btnBorrar)
         lista.innerHTML = `
             <li> Nombre: ${dato.info_nombre}</li>
@@ -220,13 +225,27 @@ function templace_Literal(dato){
 function enviarMensaje(eve){
     eve.preventDefault()
 
-    console.log('precionaste enviar')
-
     const datos = btnEnviar.parentElement;
-    console.log(datos)
+
     obtenerDatos(datos);
 
-    formularioEnviar.reset()
+    const spinner = document.getElementById('spinner');
+    spinner.style.display = 'block'
+
+    setTimeout(function enviarHidden(){
+        
+        btnEnviar.style.display = 'none'
+        setTimeout(function spinnerTime(){
+            spinner.style.display = 'none';
+
+            formularioEnviar.reset()
+            window.location.reload()
+        }, 3000)
+
+    },0)
+        
+
+    
 }
 
 //abre los registros guardados
@@ -250,6 +269,32 @@ function registrosCerrar(eve){
     setTimeout(function esperar(){
         formularioEnviar.style.zIndex = '20'
     },300)
+}
+
+//borra los registros
+
+function borrarRegistros(eve){
+    eve.preventDefault()
+    let registro, registroId;
+    if(eve.target.classList = 'error'){
+
+        registro = eve.target.nextSibling;
+        registroId = registro.getAttribute('data_id')
+
+        eve.target.nextSibling.remove()
+        eve.target.remove()
+    }
+
+    borrarRegistros_LS(registroId)
+}
+
+function borrarRegistros_LS(registroId){
+    const data = obtenerDatos_LocalStorage()
     
-    
+    data.forEach(function(dat, index){
+        if(dat.data_id == registroId){
+            data.splice(index, 1)
+            localStorage.setItem('UserData' , JSON.stringify(data));
+        }
+    })
 }

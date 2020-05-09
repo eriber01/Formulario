@@ -123,6 +123,10 @@ input[type=submit]{
     box-shadow: rgba(0, 0, 0, 0.5) 4px 5px 15px;
 }
 
+#spinner{
+    width: 15%;
+}
+
 .registros{
     list-style: none;
     color: rgba(255, 0, 149, 0.8);
