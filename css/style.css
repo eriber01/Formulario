@@ -59,7 +59,7 @@ input[type=submit]{
 /*area desplazable con los datos de los registros*/
 
 .registros-container{
-    overflow: auto;
+    overflow-y: scroll;
     width: 35%;
     height: 0%;
     padding: 20px;
@@ -67,6 +67,20 @@ input[type=submit]{
     transform: translateY(101%);
     opacity: 0;
     transition: all 500ms ease;
+}
+
+.registros-container::-webkit-scrollbar{
+    width: 8px;
+}
+
+.registros-container::-webkit-scrollbar-track{
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.7) ;
+    border-radius: 5px;
+}
+
+.registros-container::-webkit-scrollbar-thumb{
+    box-shadow: inset 0 0 3px rgb(0, 0, 0) ;
+    border-radius: 5px;
 }
 
 .registros-ver{
