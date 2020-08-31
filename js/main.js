@@ -224,28 +224,45 @@ function templace_Literal(dato){
 //envia el formulario
 function enviarMensaje(eve){
     eve.preventDefault()
+    
+    swal({
+        title: "Esta seguro el mensaje sera enviado?",
+        text: "Una ves enviado para quitarlo tiene que borrarlo!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+    .then((willDelete) => {
+        if (willDelete) {
+            const datos = btnEnviar.parentElement;
 
-    const datos = btnEnviar.parentElement;
+            obtenerDatos(datos);
 
-    obtenerDatos(datos);
+            const spinner = document.getElementById('spinner');
+            spinner.style.display = 'block'
 
-    const spinner = document.getElementById('spinner');
-    spinner.style.display = 'block'
-
-    setTimeout(function enviarHidden(){
+            setTimeout(function enviarHidden(){
         
-        btnEnviar.style.display = 'none'
-        setTimeout(function spinnerTime(){
-            spinner.style.display = 'none';
+            btnEnviar.style.display = 'none'
+            setTimeout(function spinnerTime(){
+                
+                spinner.style.display = 'none';
+                swal("El mensaje se esta enviando!", {
+                    icon: "success",
+                })
+                setTimeout(function(){
+                    formularioEnviar.reset()
+                    window.location.reload()
+                },3000)
 
-            formularioEnviar.reset()
-            window.location.reload()
-        }, 3000)
+        }, 1000)
 
     },0)
-        
-
-    
+            ;
+        } else {
+            swal("El mensaje sigue como lo dejo!");
+        }
+    });
 }
 
 //abre los registros guardados
@@ -275,17 +292,31 @@ function registrosCerrar(eve){
 
 function borrarRegistros(eve){
     eve.preventDefault()
-    let registro, registroId;
-    if(eve.target.classList = 'error'){
 
-        registro = eve.target.nextSibling;
-        registroId = registro.getAttribute('data_id')
-
-        eve.target.nextSibling.remove()
-        eve.target.remove()
-    }
-
-    borrarRegistros_LS(registroId)
+    swal({
+        title: "Esta seguro?",
+        text: "Una vez borrado, No podras volver a recuperarlo!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+    .then((willDelete) => {
+        if (willDelete) {
+            swal("Listo! El mensaje a sido borrado!", {
+            icon: "success",
+            });
+            let registro, registroId;
+            if(eve.target.classList = 'error'){
+                registro = eve.target.nextSibling;
+                registroId = registro.getAttribute('data_id')
+                eve.target.nextSibling.remove()
+                eve.target.remove()
+            }
+            borrarRegistros_LS(registroId)
+        } else {
+            swal("El mensaje esta a salvo!");
+        }
+    });
 }
 
 function borrarRegistros_LS(registroId){
